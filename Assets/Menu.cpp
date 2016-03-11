@@ -106,7 +106,7 @@ void MainMenu::Draw()
 {
 	for( int i = 0; i < nBtns; i++ )
 	{
-		mButtons[ i ]->Draw(gfx);
+		mButtons[ i ]->Draw(f, gfx);
 	}
 }
 
@@ -141,7 +141,7 @@ void ScoreMenu::Do()
 
 void ScoreMenu::Draw()
 {
-	mBack->Draw(gfx);
+	mBack->Draw(f, gfx);
 		
 	unsigned int y = 25;
 	for( unsigned int index = 0; index < entries.size() && index < 10; index++ )
@@ -180,7 +180,7 @@ void OptionsMenu::Do()
 
 void OptionsMenu::Draw()
 {
-	mBack->Draw(gfx);	
+	mBack->Draw(f, gfx);
 }
 
 void OptionsMenu::LoadConfig()

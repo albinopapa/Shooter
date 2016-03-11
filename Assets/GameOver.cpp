@@ -44,6 +44,6 @@ void GameOver::BeginFrame()
 void GameOver::ComposeFrame()
 {
 	gfx.DrawCircle(ic.GetMousePos().x, ic.GetMousePos().y, 32, gfx.FILLCOLOR_XRGB(255, 255, 255));
-	mQuit.Draw(gfx);
-	mTryAgain.Draw(gfx);	
+	mQuit.Draw(f, gfx);
+	mTryAgain.Draw(f, gfx);
 }

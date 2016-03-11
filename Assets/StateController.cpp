@@ -41,6 +41,9 @@ void StateController::Do()
 	{
 		switch(core.curState)
 		{
+		case StateCore::GState::QUIT:
+			PostQuitMessage(0);
+			break;
 		case StateCore::GState::MAINMENU:
 			Transition(new MainMenu(*this, core, false));
 			break;

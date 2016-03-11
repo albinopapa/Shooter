@@ -32,7 +32,7 @@ const char*Button::GetText()const
 	return Text.c_str();
 }
 
-void Button::Draw(D3DGraphics &gfx)
+void Button::Draw(D3DGraphics::Font &Font, D3DGraphics &gfx)
 {
-	gfx.DrawButton( X, Y, X2, Y2, Text.c_str(), &font, c);
+	gfx.DrawButton( X, Y, X2, Y2, Text.c_str(), &Font, c);
 }

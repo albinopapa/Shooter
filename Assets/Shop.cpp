@@ -189,6 +189,6 @@ Inventory::Inventory(std::string Name, Vec2 pos, unsigned int Cost, D3DGraphics 
 void Inventory::Draw(D3DGraphics &gfx, D3DGraphics::Font *font, D3DGraphics::Color color)
 {
 	gfx.DrawString(str.c_str(), X, Y - 30, font, color);
-	buy.Draw(gfx);
-	sell.Draw(gfx);
+	buy.Draw(*font, gfx);
+	sell.Draw(*font, gfx);
 }

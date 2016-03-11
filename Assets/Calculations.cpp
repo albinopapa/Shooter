@@ -113,7 +113,7 @@ Vec2 CalcScreenScale(const Vec2& scrn)
 	return Vec2(scrn.x / (float)SCREENWIDTH, scrn.y / (float)SCREENHEIGHT );
 }
 
-Vec2 Vec2ScreenRes(const Vec2& Coord, const Vec2& scrn )
+Vec2 ScreenRes(const Vec2& Coord, const Vec2& scrn )
 {
 	Vec2 scale = CalcScreenScale( scrn );
 	scale.x *= Coord.x;
@@ -121,17 +121,16 @@ Vec2 Vec2ScreenRes(const Vec2& Coord, const Vec2& scrn )
 	return scale;
 }
 
-Vec2 GameToScreenVec2(const Vec2& Coord, const Vec2& scrn, const Vec2& cam )
+Vec2 WorldToScreen(const Vec2& Coord, const Vec2& Scrn, const Vec2& Cam)
 {
-	Vec2 c(Coord.x - cam.x, Coord.y - cam.y);
-	c = Vec2ScreenRes( c, scrn );
-	return c;
+	Vec2 offset(Coord - Cam);
+	offset = ScreenRes(offset, Scrn);
+	return offset;
 }
 
-Vec2 ScreenToGameVec2(const Vec2& Coord, const Vec2& scrn, const Vec2& cam )
+Vec2 ScreenToWorld(const Vec2& Coord, const Vec2& Scrn, const Vec2& Cam)
 {
-	Vec2 c = Vec2ScreenRes(Coord, scrn );
-	c.x = cam.x + Coord.x;
-	c.y = cam.y + Coord.y;
+	Vec2 c = ScreenRes(Coord, Scrn);
+	c = Cam + Coord;
 	return c;
 }

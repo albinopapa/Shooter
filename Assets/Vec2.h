@@ -30,7 +30,8 @@ float CalcSpeed( float speed );
 float CalcSlopeToAngle( float slope );
 Vec2 CalcAngleToSlope( int angle );
 float CalcDegToRad( int angleDegree );
+
 Vec2 CalcScreenScale(const Vec2& scrn );
-Vec2 Vec2ScreenRes(const Vec2& Coord, const Vec2& scrn );
-Vec2 GameToScreenVec2(const Vec2& Coord, const Vec2& scrn, const Vec2& cam );
-Vec2 ScreenToGameVec2(const Vec2& Coord, const Vec2& scrn, const Vec2& cam );
+Vec2 ScreenRes(const Vec2& Coord, const Vec2& scrn );
+Vec2 WorldToScreen(const Vec2& Coord, const Vec2& scrn, const Vec2& cam );
+Vec2 ScreenToWorld(const Vec2& Coord, const Vec2& scrn, const Vec2& cam );

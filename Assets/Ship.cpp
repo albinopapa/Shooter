@@ -27,12 +27,16 @@ void Ship::AdjustPosition( float camMoveDistance )
 
 void Ship::Draw(const Vec2& camOffset)
 {
+	D3DGraphics::Color color = core.gfx.FILLCOLOR_XRGB(0, 255, 255);
+	Vec2 ship_offset(WorldToScreen(pos, scrnSize, camOffset));
+
 	for(unsigned int i = 0; i < numVerts; i++)
 	{
 		unsigned int j = (i+1) % numVerts;
-		/*core.gfx.DrawShip((int)x, (int)y - (int)camOffset.y, (int)verts[i].x, (int)verts[i].y, 
-			(int)verts[j].x, (int)verts[j].y, core.gfx.FILLCOLOR_XRGB(0, 255, 255));	*/
-		core.gfx.DrawShip(GameToScreenVec2( pos, scrnSize, camOffset ), GameToScreenVec2( verts[ i ], scrnSize, camOffset ), GameToScreenVec2( verts[ j ], scrnSize, camOffset ), core.gfx.FILLCOLOR_XRGB(0, 255, 255));	
+		
+		Vec2 vert_offset_i(ScreenRes(verts[i], scrnSize));
+		Vec2 vert_offset_j(ScreenRes(verts[j], scrnSize));
+		core.gfx.DrawShip(ship_offset, vert_offset_i, vert_offset_j, color);
 	}
 }
 

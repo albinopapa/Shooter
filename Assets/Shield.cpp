@@ -40,7 +40,7 @@ void Shield::Draw(const Vec2& camOffset)
 {	
 	if(health > 0.0f)
 	{
-		core.gfx.DrawShield(GameToScreenVec2( pos, scrnSize, camOffset ), radius, health, scaleFactor.y);
+		core.gfx.DrawShield(WorldToScreen( pos, scrnSize, camOffset ), radius, health, scaleFactor.y);
 	}
 }
 

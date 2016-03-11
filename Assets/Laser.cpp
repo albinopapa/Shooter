@@ -74,9 +74,9 @@ bool Laser::HasCollided(Entity* src2)
 void Laser::Draw(Vec2 &camOffset)
 {
 	Vec2 pos2 = pos;
-	pos = GameToScreenVec2( pos2, scrnSize, camOffset );
+	pos = WorldToScreen( pos2, scrnSize, camOffset );
 	Vec2 p2 = CEndPoint;
-	p2 = GameToScreenVec2( p2, scrnSize, camOffset );
+	p2 = WorldToScreen( p2, scrnSize, camOffset );
 	core.gfx.DrawLine( pos2, p2, core.gfx.FILLCOLOR_XRGB( 255,255,255 ) );
 }
 

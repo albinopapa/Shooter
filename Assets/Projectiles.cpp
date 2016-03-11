@@ -52,7 +52,7 @@ bool Projectile::HasTimeToLive()
 
 void Projectile::Draw(const Vec2 &CamOffset)
 {
-  	core.gfx.DrawAmmo( GameToScreenVec2( pos, scrnSize, CamOffset), scaleFactor );
+  	core.gfx.DrawAmmo(WorldToScreen( pos, scrnSize, CamOffset), scaleFactor );
 }
 
 void Projectile::Do()
@@ -77,7 +77,7 @@ MGun::MGun(const Vec2 &Position, const Vec2 &Slope, StateCore &Core)
 
 void MGun::Draw(Vec2 &camOffset)
 {
-	core.gfx.DrawAmmo( GameToScreenVec2( pos, scrnSize, camOffset ), scaleFactor );
+	core.gfx.DrawAmmo(WorldToScreen( pos, scrnSize, camOffset ), scaleFactor );
 }
 
 // Missile Class Begin
@@ -194,7 +194,7 @@ void Missile::Draw(Vec2 &camOffset)
 		c = core.gfx.FILLCOLOR_XRGB(255, 0, 0);
 		break;
 	}
-	core.gfx.DrawCircle( GameToScreenVec2( pos, scrnSize, camOffset ), MIR, scaleFactor.y, c);
+	core.gfx.DrawCircle(WorldToScreen( pos, scrnSize, camOffset ), MIR, scaleFactor.y, c);
 }
 
 // EnergyBall class
@@ -226,5 +226,5 @@ void EnergyBall::ModifyRadius( float amount )
 
 void EnergyBall::Draw(Vec2 &camOffset)
 {
-	core.gfx.DrawDisc( GameToScreenVec2( pos, scrnSize, camOffset ), radius, scaleFactor.y, core.gfx.FILLCOLOR_XRGB( 255,255,255 ) );
+	core.gfx.DrawDisc(WorldToScreen( pos, scrnSize, camOffset ), radius, scaleFactor.y, core.gfx.FILLCOLOR_XRGB( 255,255,255 ) );
 }

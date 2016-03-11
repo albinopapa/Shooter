@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Resource Include="..\Assets\ChiliDirectXFramework.res" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Assets\Event.cpp" />
+    <ClCompile Include="..\Assets\StoryLevel.cpp" />
+    <ClCompile Include="..\Assets\Asteroid.cpp">
+      <Filter>Source\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\Button.cpp">
+      <Filter>Source\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\Camera.cpp">
+      <Filter>Source\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\D3DGraphics.cpp">
+      <Filter>Source\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\Entity.cpp">
+      <Filter>Source\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\Game.cpp">
+      <Filter>Source\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\GameOver.cpp">
+      <Filter>Source\States</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\GameState.cpp">
+      <Filter>Source\States</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\Input.cpp">
+      <Filter>Source\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\Calculations.cpp">
+      <Filter>Source\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\EntityController.cpp">
+      <Filter>Source\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\InputController.cpp">
+      <Filter>Source\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\Joystick.cpp">
+      <Filter>Source\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\Keyboard.cpp">
+      <Filter>Source\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\Level.cpp">
+      <Filter>Source\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\Loading.cpp">
+      <Filter>Source\States</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\Menu.cpp">
+      <Filter>Source\States</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\Mouse.cpp">
+      <Filter>Source\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\Play.cpp">
+      <Filter>Source\States</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\ScoreController.cpp">
+      <Filter>Source\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\Shield.cpp">
+      <Filter>Source\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\Sound.cpp">
+      <Filter>Source\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\Ship.cpp">
+      <Filter>Source\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\StateController.cpp">
+      <Filter>Source\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\StateCore.cpp">
+      <Filter>Source\States</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\Timer.cpp">
+      <Filter>Source\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\TimerServer.cpp">
+      <Filter>Source\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\Trigger.cpp">
+      <Filter>Source\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\Weapon.cpp">
+      <Filter>Source\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\WeaponController.cpp">
+      <Filter>Source\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\Windows.cpp">
+      <Filter>Source\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\Shop.cpp">
+      <Filter>Source\States</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\Story.cpp" />
+    <ClCompile Include="..\Assets\Projectiles.cpp">
+      <Filter>Source\Assets\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\Laser.cpp">
+      <Filter>Source\Assets\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\Vec2.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Assets\Event.h" />
+    <ClInclude Include="..\Assets\Story.h" />
+    <ClInclude Include="..\Assets\StoryLevel.h" />
+    <ClInclude Include="..\Assets\Resource.h" />
+    <ClInclude Include="..\Assets\Asteroid.h">
+      <Filter>Headers\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\Button.h">
+      <Filter>Headers\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\Camera.h">
+      <Filter>Headers\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\D3DGraphics.h">
+      <Filter>Headers\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\Entity.h">
+      <Filter>Headers\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\Game.h">
+      <Filter>Headers\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\GameOver.h">
+      <Filter>Headers\States</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\GameState.h">
+      <Filter>Headers\States</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\Input.h">
+      <Filter>Headers\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\EntityController.h">
+      <Filter>Headers\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\InputController.h">
+      <Filter>Headers\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\Joystick.h">
+      <Filter>Headers\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\Keyboard.h">
+      <Filter>Headers\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\Level.h">
+      <Filter>Headers\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\Shield.h">
+      <Filter>Headers\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\Ship.h">
+      <Filter>Headers\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\Trigger.h">
+      <Filter>Headers\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\Weapon.h">
+      <Filter>Headers\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\Loading.h">
+      <Filter>Headers\States</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\Menu.h">
+      <Filter>Headers\States</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\Play.h">
+      <Filter>Headers\States</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\Shop.h">
+      <Filter>Headers\States</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\StateCore.h">
+      <Filter>Headers\States</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\WeaponController.h">
+      <Filter>Headers\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\StateController.h">
+      <Filter>Headers\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\ScoreController.h">
+      <Filter>Headers\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\Timer.h">
+      <Filter>Headers\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\TimerServer.h">
+      <Filter>Headers\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\Sound.h">
+      <Filter>Headers\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\Mouse.h">
+      <Filter>Headers\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\Projectiles.h">
+      <Filter>Headers\Assets\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\Laser.h">
+      <Filter>Headers\Assets\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\Vec2.h">
+      <Filter>Headers\Tools</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{9b55aff4-d8f3-4e11-9134-e84edff46091}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Framework">
+      <UniqueIdentifier>{0d247d31-02f5-4bd5-b341-ec1afc82b264}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Assets">
+      <UniqueIdentifier>{6e529654-7242-4860-b69b-e353a288a5e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{d9d3fd5f-8e28-44d9-b03f-76ea820fd8c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Framework">
+      <UniqueIdentifier>{acee0697-5852-4062-a4fc-3de29ac9b285}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Assets">
+      <UniqueIdentifier>{b9880063-8663-4543-bcc4-9ea6e197b41c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\States">
+      <UniqueIdentifier>{eb8568af-6be7-48d8-9e0c-29ec0a5713d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\States">
+      <UniqueIdentifier>{972e34e7-4591-4297-b25b-411c6ee5bbca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Tools">
+      <UniqueIdentifier>{89b83875-5832-4ad8-b4fd-7860d410e166}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Tools">
+      <UniqueIdentifier>{f023495d-feac-4b59-b2b5-3473746f93b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Controllers">
+      <UniqueIdentifier>{23e4a1af-9219-409f-9f40-46d4b3776eca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Controllers">
+      <UniqueIdentifier>{ca4f05b3-e4e2-4867-8c9c-a128e2d97656}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Assets\Projectiles">
+      <UniqueIdentifier>{db119379-4cd0-4776-8351-f99248978777}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Assets\Projectiles">
+      <UniqueIdentifier>{d45ba80f-3904-41d8-9f0f-bb0eff71973c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

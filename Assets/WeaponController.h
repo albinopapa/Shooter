@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include "StandardLibraryIncludes.h"
 #include "InputController.h"
 #include "Vec2.h"
 #include "Weapon.h"
@@ -36,7 +36,9 @@ public:
 	int SalePrice(Weapon *wep);
 private:
 	float Energy, RechargeRate;
-	Weapon **weapon;
+	std::unique_ptr<std::unique_ptr<Weapon>[]> weapons;
+	
+	//Weapon **weapon;
 	Weapon *curWeapon;
 	char hotkeys[ nWeps ];
 	StateCore &core;

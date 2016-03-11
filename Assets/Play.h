@@ -17,6 +17,10 @@ private:  // private functions
 	void UpdateAsteroids();
 	void UpdateAmmo();
 	void UpdateBoss();
+
+	void CheckCollisions();
+	void CleanVectors();
+
 	void BeginFrame()override;
 	void ComposeFrame()override;
 

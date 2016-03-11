@@ -12,7 +12,7 @@ Shop::Shop( StateController &sc, StateCore &core)
 	:
 	GameState(sc, core),
 	filename( "Shop.txt" ),
-	weppur(new WepPur(core) )
+	weppur(std::make_unique<WepPur>(core))
 {	 
 	int bX = 25;
 	int bY = 50;
@@ -20,8 +20,9 @@ Shop::Shop( StateController &sc, StateCore &core)
 	int bHeight = 50;
 	int bSpacing = 40;
 	int next = bHeight + bSpacing;
-	inv = new Inventory*[nWeps];
-	Vec2 pos(bX, bY);
+	inv = std::make_unique<std::unique_ptr<Inventory>[]>(nWeps);
+
+	Vec2 pos(static_cast<float>(bX), static_cast<float>(bY));
 	unsigned int i = 0;
 	WeaponController *wc = core.player.GetWC();
 	for(unsigned int i = 0; i < nWeps; i++)
@@ -30,19 +31,19 @@ Shop::Shop( StateController &sc, StateCore &core)
 		switch (i)
 		{
 		case 0:
-			inv[i] = new Inventory("Blaster", pos, wc->GetCurrentUpgrade(wep) * 500, core.gfx, wep);
+			inv[i] = std::make_unique<Inventory>("Blaster", pos, wc->GetCurrentUpgrade(wep) * 500, core.gfx, wep);
 			break;
 		case 1:
-			inv[i] = new Inventory("M. Gun", pos, wc->GetCurrentUpgrade(wep) * 500, core.gfx, wep);
+			inv[i] = std::make_unique<Inventory>("M. Gun", pos, wc->GetCurrentUpgrade(wep) * 500, core.gfx, wep);
 			break;
 		case 2:
-			inv[i] = new Inventory("Missile", pos, wc->GetCurrentUpgrade(wep) * 500, core.gfx, wep);
+			inv[i] = std::make_unique<Inventory>("Missile", pos, wc->GetCurrentUpgrade(wep) * 500, core.gfx, wep);
 			break;
 		case 3:
-			inv[i] = new Inventory("E.Cannon", pos, wc->GetCurrentUpgrade(wep) * 500, core.gfx, wep);
+			inv[i] = std::make_unique<Inventory>("E.Cannon", pos, wc->GetCurrentUpgrade(wep) * 500, core.gfx, wep);
 			break;
 		case 4:
-			inv[i] = new Inventory("Lazer", pos, wc->GetCurrentUpgrade(wep) * 500, core.gfx, wep);
+			inv[i] = std::make_unique<Inventory>("Lazer", pos, wc->GetCurrentUpgrade(wep) * 500, core.gfx, wep);
 			break;
 		}
 		pos.y += next;
@@ -96,14 +97,6 @@ void Shop::writeData()
 
 Shop::~Shop()
 {
-	delete  weppur;
-	for(int i = 0; i < nWeps; i++)
-	{
-		delete inv[i];
-		inv[i] = nullptr;
-	}
-	delete []inv;
-	inv = nullptr;
 }
 
 // Weapon purchase class

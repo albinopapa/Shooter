@@ -1,8 +1,5 @@
 #pragma once
-#include <string>
-#include <vector>
-#include <time.h>
-#include <fstream>
+#include "StandardLibraryIncludes.h"
 
 // ScoreController is used to
 // Load the scores at game start

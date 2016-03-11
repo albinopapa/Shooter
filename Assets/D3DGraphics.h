@@ -1,6 +1,7 @@
 #pragma once
 #include <d3d9.h>
 #include "Vec2.h"
+#include "StandardLibraryIncludes.h"
 
 #define SCREENWIDTH 800
 #define SCREENHEIGHT 600
@@ -27,7 +28,7 @@ public:
 		int width;
 		int height;
 		Color key;
-		Color* surface;
+		std::unique_ptr<Color[]> surface;
 		IDirect3DSurface9* pd3dSurf;
 		IDirect3DTexture9* pd3dSTex;
 
@@ -38,7 +39,7 @@ public:
 		int charWidth;
 		int charHeight;
 		int nCharsPerRow;
-		Color* surface;
+		std::unique_ptr<Color[]> surface;
 	};
 
 
@@ -93,18 +94,18 @@ public:
 	void EndFrame();
 
 private:
-	IDirect3D9*			pDirect3D;
-	IDirect3DDevice9*	pDevice;
-	IDirect3DSurface9*	pBackBuffer;
-	D3DLOCKED_RECT		backRect;
-	D3DPRESENT_PARAMETERS d3dpp;
+	IDirect3D9*					pDirect3D;
+	IDirect3DDevice9*			pDevice;
+	IDirect3DSurface9*			pBackBuffer;
+	D3DLOCKED_RECT				backRect;
+	D3DPRESENT_PARAMETERS		d3dpp;
 
-	IDirect3DTexture9*	pD3DTexture;
-	IDirect3DSurface9*	pD3DSurface;
+	IDirect3DTexture9*			pD3DTexture;
+	IDirect3DSurface9*			pD3DSurface;
 	
-	Color*				pTestSurface;
-	Sprite				bgImage;
-	VFONT				*vFont;
+	std::unique_ptr<Color[]>	pTestSurface;
+	Sprite						bgImage;
+	VFONT*						vFont;
 	// Test
 
 };

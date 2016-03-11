@@ -8,7 +8,7 @@ Trigger::Trigger(StateCore &core)
 	:
 	core(core),
 	passed(false),
-	ec(new EntityController(core) )
+	ec(std::make_unique<EntityController>(core) )
 {
 	x = 0;
 	y = 0;	
@@ -83,7 +83,6 @@ void ATrigger::Do()
 
 ATrigger::~ATrigger()
 {
-	delete ec;
 }
 
 // Enemy trigger
@@ -125,7 +124,6 @@ void ETrigger::Do()
 
 ETrigger::~ETrigger()
 {
-	delete ec;
 }
 
 // Boss trigger
@@ -153,6 +151,5 @@ void BTrigger::Do()
 
 BTrigger::~BTrigger()
 {
-	delete ec;
 }
 

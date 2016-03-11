@@ -14,7 +14,7 @@ class Weapon
 public:
 	Weapon(StateCore &core, bool unlock, bool have, unsigned int level, std::string name, unsigned int cost);
 	virtual ~Weapon();
-	virtual void Fire( Vec2 pos );
+	virtual void Fire(const Vec2 &LaunchPosition);
 	float GetEnergyDrain();
 	float GetRechargeRate();
 	void SetFireState(bool fire);
@@ -28,7 +28,7 @@ protected:
 	float angle[ 5 ];
 	unsigned int curlevel, nextLevel;
 	float fireRate, fireTimer;
-	Projectile *projectileType;
+	std::unique_ptr<Projectile> projectileType;
 	StateCore &core;
 	// Weapon attributes
 	Vec2 dummyPos;
@@ -42,7 +42,7 @@ class LaserWeap : public Weapon
 public:
 	LaserWeap(StateCore &core, bool unlock, bool have, unsigned int level, std::string name, unsigned int cost);
 	~LaserWeap();
-	virtual void Fire( Vec2 pos );
+	virtual void Fire(const Vec2 &LaunchPosition);
 };
 
 class MachineGun : public Weapon

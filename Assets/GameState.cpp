@@ -9,15 +9,10 @@ GameState::GameState(StateController &sc, StateCore &core )
 	gfx(core.gfx),
 	ic(core.ic)
 {
-	f.surface = new D3DGraphics::Color[512 * 84];
-	gfx.LoadFont(&f, f.surface, L"Fonts\\Fixedsys16x28.bmp", 16, 28, 32);
+	f.surface = std::make_unique<D3DGraphics::Color[]>(512 * 84);
+	gfx.LoadFont(&f, f.surface.get(), L"Fonts\\Fixedsys16x28.bmp", 16, 28, 32);
 }
 
 GameState::~GameState()
 {
-	if (f.surface)
-	{
-		delete[] f.surface;
-	}
-	f.surface = nullptr;
 }

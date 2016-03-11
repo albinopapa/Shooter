@@ -17,7 +17,7 @@ Game::~Game()
 
 void Game::Go()
 {	
-	UpdateTimer();
+	TimerServer::Update();
 	core.ic.Update();
 	sc.Do();
 	gfx.EndFrame();
@@ -25,7 +25,6 @@ void Game::Go()
 
 void Game::UpdateTimer()
 {
-	TimerServer::Update();
 }
 
 //void Game::DoState( Game::GameState State )

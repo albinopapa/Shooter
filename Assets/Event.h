@@ -1,9 +1,5 @@
 #pragma once
-#include <stdio.h>
-#include <string>
-#include <vector>
-#include <stdarg.h>
-#include <typeinfo>
+#include "StandardLibraryIncludes.h"
 
 template <typename V1, typename V2>
 bool Equal(const V1 v1, const V2 v2)

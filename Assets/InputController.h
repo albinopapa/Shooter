@@ -23,6 +23,7 @@ public:
 	bool IsPaused();
 	bool KeyTyped( unsigned char key);
 	void GetAxes( float* x, float* y );
+	Vec2 GetAxes();
 private:
 	void ClipAxis( unsigned int maxClipSize, float* axis );
 

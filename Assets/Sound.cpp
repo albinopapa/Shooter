@@ -21,6 +21,7 @@
  ******************************************************************************************/
 #include "Sound.h"
 #include <assert.h>
+#include <memory>
 
 #pragma comment(lib, "dsound.lib")
 #pragma comment(lib, "dxguid.lib")
@@ -95,8 +96,8 @@ Sound DSound::CreateSound( char* wavFileName )
 	HRESULT result;
 	IDirectSoundBuffer* tempBuffer;
 	IDirectSoundBuffer8* pSecondaryBuffer;
-	unsigned char* waveData;
-	unsigned char* bufferPtr;
+	std::unique_ptr<unsigned char[]> waveData;
+	std::unique_ptr<unsigned char[]> bufferPtr;
 	unsigned long bufferSize;
 
 
@@ -202,11 +203,11 @@ Sound DSound::CreateSound( char* wavFileName )
 	tempBuffer = 0;
 
 	// Create a temporary buffer to hold the wave file data.
-	waveData = new unsigned char[ waveChk.ckSize ];
+	waveData = std::make_unique<unsigned char[]>(waveChk.ckSize);
 	assert( waveData );
 
 	// Read in the wave file data into the newly created buffer.
-	count = fread( waveData,1,waveChk.ckSize,filePtr );
+	count = fread(waveData.get(), 1, waveChk.ckSize, filePtr);
 	assert( count == waveChk.ckSize );
 
 	// Close the file once done reading.
@@ -218,15 +219,12 @@ Sound DSound::CreateSound( char* wavFileName )
 	assert( !FAILED( result ) );
 
 	// Copy the wave data into the buffer.
-	memcpy( bufferPtr,waveData,waveChk.ckSize );
+	memcpy(bufferPtr.get(), waveData.get(), waveChk.ckSize);
 
 	// Unlock the secondary buffer after the data has been written to it.
-	result = pSecondaryBuffer->Unlock( (void*)bufferPtr,bufferSize,NULL,0 );
+	result = pSecondaryBuffer->Unlock((void*)bufferPtr.get(), bufferSize, NULL, 0);
 	assert( !FAILED( result ) );
 
-	// Release the wave data since it was copied into the secondary buffer.
-	delete [] waveData;
-	waveData = NULL;
 
 	return Sound( pSecondaryBuffer );
 }

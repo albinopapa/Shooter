@@ -1,9 +1,6 @@
 #pragma once
 
-#include <fstream>
-#include <string>
-#include <vector>
-#include <time.h>
+#include "StandardLibraryIncludes.h"
 
 #include "D3DGraphics.h"
 #include "InputController.h"
@@ -27,7 +24,7 @@ public:
 	
 protected:
 	std::string filename;
-	Button **mButtons;
+	std::unique_ptr<Button *[]> mButtons;
 	int nBtns;
 };
 
@@ -41,11 +38,11 @@ public:
 	void Draw();
 
 private:
-	Button *mScore;
-	Button *mStart;
-	Button *mQuit;
-	Button *mShop;
-	Button *mOptions;
+	std::unique_ptr<Button> mScore;
+	std::unique_ptr<Button> mStart;
+	std::unique_ptr<Button> mQuit;
+	std::unique_ptr<Button> mShop;
+	std::unique_ptr<Button> mOptions;
 };
 
 class ScoreMenu : public GameMenu
@@ -58,7 +55,7 @@ public:
 	void Draw();
 private:
 	void LoadScoreList();
-	Button *mBack;
+	std::unique_ptr<Button> mBack;
 	std::vector<std::string> entries;
 	ScoreController cScore;
 };
@@ -73,21 +70,21 @@ public:
 	void SaveConfig();
 	void Do()override;
 	void Draw();
-	void GetControlsOptions( char* controllerType, char** keyAssignments );
-	void GetGraphicsOptions( unsigned int* scrnRes, bool isFullScreen );
-	void GetSoundOptions( float musicVolume, float sfxVolume );
+	void GetControlsOptions(std::string& controllerType, std::string *keyAssignments);
+	void GetGraphicsOptions(unsigned int* scrnRes, bool &isFullScreen);
+	void GetSoundOptions(float &musicVolume, float &sfxVolume);
 
 private:
 	enum key
 	{
 		UP, DOWN, LEFT, RIGHT, FIRE
 	};
-	char* controller;
-	char* keyAssign[5];
+	std::string controller;
+	std::string keyAssign[5];
 	unsigned int resX, resY;
 	bool fScreen;
 	float mVolume, sfxVolume;
-	char* fileName, header;
-	Button *mBack;
+	std::string filename, header;
+	std::unique_ptr<Button> mBack;
 
 };

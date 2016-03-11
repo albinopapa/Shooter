@@ -111,6 +111,45 @@ void InputController::GetAxes(float *x, float *y)
 	}
 }
 
+Vec2 InputController::GetAxes()
+{
+	Vec2 temp, result;
+	if (jStick.Check())
+	{
+		temp = jPos;
+	}
+	// W or UpArrow
+	if (kbd.GetButtons(DIK_W) || kbd.GetButtons(DIK_UP))
+	{
+		result.y = -1.0f;
+	}
+	// S or DownArrow
+	else if (kbd.GetButtons(DIK_S) || kbd.GetButtons(DIK_DOWN))
+	{
+		result.y = 1.0f;
+	}
+	else
+	{
+		result.y = temp.y;
+	}
+	// A or LeftArrow
+	if (kbd.GetButtons(DIK_A) || kbd.GetButtons(DIK_LEFT))
+	{
+		result.x = -1.0f;
+	}
+	// D or RightArrow
+	else if (kbd.GetButtons(DIK_D) || kbd.GetButtons(DIK_RIGHT))
+	{
+		result.x = 1.0f;
+	}
+	else
+	{
+		result.x = temp.x;
+	}
+
+	return result;
+}
+
 bool InputController::Firing()
 {	
 	// Fire = Spacebar, Left Mouse Button, Joystick button 0

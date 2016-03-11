@@ -64,6 +64,9 @@ void Play::Do()
 	UpdateEnemies();
 	UpdateAsteroids();
 	UpdateBoss();
+
+	CheckCollisions();
+	CleanVectors();
 	
 	ComposeFrame();
 }
@@ -102,26 +105,13 @@ void Play::UpdateEnemies()
 	for (unsigned int i = 0; i < core.enemy.size(); i++)
 	{
 		core.enemy[ i ]->RevealPlayerPosition( pPos );
-		ec.Update(core.enemy[i]);
-		ec.CheckCollision(player, core.enemy[i]);
-		for (unsigned int j = 0; j < core.ammo.size(); j++)
-		{
-			ec.CheckCollision(core.ammo[j], core.enemy[i]);
-		}
-		for (unsigned int j = 0; j < core.asteroid.size(); j++)
-		{
-			ec.CheckCollision(core.asteroid[j], core.enemy[i]);
-		}
-		if (ec.IsDead(core.enemy[i]))
+		ec.Update(core.enemy[i].get());
+		if (ec.IsDead(core.enemy[i].get()))
 		{
 			if (core.enemy[i]->GotHitByAmmo())
 			{
-				core.cScore.Add( core.enemy[ i ]->GetValue() );
+				core.cScore.Add(core.enemy[i]->GetValue());
 			}
-			ec.EraseEntity( core.enemy[i] );
-			core.enemy[i] = core.enemy.back();
-			core.enemy.pop_back();
-			i--;
 		}
 	}
 }
@@ -130,16 +120,7 @@ void Play::UpdateAsteroids()
 {
 	for (unsigned int i = 0; i < core.asteroid.size(); i++)
 	{
-		ec.Update(core.asteroid[i]);
-		ec.CheckCollision(&core.player, core.asteroid[i]);
-		for (unsigned int j = 0; j < core.ammo.size(); j++)
-		{
-			ec.CheckCollision(core.ammo[j], core.asteroid[i]);
-		}
-		for (unsigned int j = i + 1; j < core.asteroid.size(); j++)
-		{
-			ec.CheckCollision(core.asteroid[i], core.asteroid[j]);
-		}
+		ec.Update(core.asteroid[i].get());
 	}
 }
 
@@ -147,14 +128,7 @@ void Play::UpdateAmmo()
 {
 	for(unsigned int i = 0; i < core.ammo.size(); i++)
 	{		
-		ec.Update(core.ammo[i]);
-		if( !core.ammo[ i ]->HasTimeToLive() )
-		{
-			ec.EraseEntity( core.ammo[i] );			
-			core.ammo[ i ] = core.ammo.back();
-			core.ammo.pop_back();
-			i--;
-		}
+		ec.Update(core.ammo[i].get());
 	}
 }
 
@@ -163,20 +137,66 @@ void Play::UpdateBoss()
 	if(core.boss)
 	{
 		core.boss->RevealPlayerPosition( Vec2( core.player.GetX(), core.player.GetY() ) );
-		ec.Update(core.boss);
-		ec.CheckCollision(core.boss, &core.player);
-		for(unsigned int i = 0; i < core.ammo.size(); i++)
+		ec.Update(core.boss.get());
+	}
+}
+
+void Play::CheckCollisions()
+{
+	for (auto &enemy : core.enemy)
+	{
+		ec.CheckCollision(player, enemy.get());
+
+		for (auto &ammo : core.ammo)
 		{
-			ec.CheckCollision(core.boss, core.ammo[i]);
+			ec.CheckCollision(ammo.get(), enemy.get());
 		}
-	
-		if(core.boss->GetHealth() <= 0.0f)
-		{			
-			ec.EraseEntity(core.boss);
-			core.currentLevel++;			
-			core.curState = StateCore::GState::LOADING;
+		for (auto &asteroid : core.asteroid)
+		{
+			ec.CheckCollision(asteroid.get(), enemy.get());
+		}
+
+	}
+	for (auto &asteroid : core.asteroid)
+	{
+		ec.CheckCollision(player, asteroid.get());
+		for (auto &ammo : core.ammo)
+		{
+			ec.CheckCollision(ammo.get(), asteroid.get());
+		}
+		for (auto& astro : core.asteroid)
+		{
+			ec.CheckCollision(asteroid.get(), astro.get());
 		}
 	}
+
+	ec.CheckCollision(core.boss.get(), player);
+	for (auto &ammo : core.ammo)
+	{
+		ec.CheckCollision(core.boss.get(), ammo.get());
+	}
+
+	if (core.boss->GetHealth() <= 0.0f)
+	{
+		core.boss.release();
+		core.currentLevel++;
+		core.curState = StateCore::GState::LOADING;
+	}
+
+}
+
+void Play::CleanVectors()
+{
+	auto &ammo_clean_start = std::remove_if(core.ammo.begin(), core.ammo.end(),
+		[&](Projectile &Ammo)
+	{
+		return Ammo.HasTimeToLive();
+	});
+	auto &enemy_clean_start = std::remove_if(core.enemy.begin(), core.enemy.end(),
+		[&](Enemy &En)
+	{
+		return En.GetHealth() <= 0.0f;
+	});
 }
 
 void Play::ComposeFrame()

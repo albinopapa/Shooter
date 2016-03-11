@@ -23,21 +23,6 @@ StateCore::StateCore(D3DGraphics &gfx, DSound& audio)
 
 StateCore::~StateCore()
 {
-	for(unsigned int i = 0; i < ammo.size(); i++)
-	{
-		delete ammo[ i ];
-		ammo[ i ] = nullptr;
-	}
-	for(unsigned int i = 0; i < asteroid.size(); i++)
-	{
-		delete asteroid[ i ];
-		asteroid[ i ] = nullptr;
-	}
-	for(unsigned int i = 0; i < enemy.size(); i++)
-	{
-		delete enemy[ i ];
-		enemy[ i ] = nullptr;
-	}
 	ammo.clear();
 	asteroid.clear();
 	enemy.clear();

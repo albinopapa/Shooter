@@ -50,32 +50,35 @@ void Level::InitCamera()
 void Level::InitTriggers()
 {	
 	unsigned int numTriggers = numEnemyTriggers + 2;
-	triggerList = new Trigger*[ numTriggers ];
+	triggerList.reset(new Trigger*[ numTriggers ]);
+	
+	eSpawn.reset(new std::unique_ptr<ETrigger>[numEnemyTriggers]);
+	aSpawn = std::make_unique<ATrigger>(core);
+	aSpawn->Set(rand() % 799, rand() % 2400 + 1200);
+	aSpawn->Clear();
 
-	eSpawn = new ETrigger*[numEnemyTriggers];
+	eBoss = std::make_unique<BTrigger>(core);
+	eBoss->Set(399, 300);
+	eBoss->Clear();
+
 	unsigned int i = 0;
 	for(i = 0; i < numEnemyTriggers; i++)
 	{
-		eSpawn[i] = new ETrigger(core);		
+		eSpawn[i] = std::make_unique<ETrigger>(core);
+
 		unsigned int j = (3000 / numTriggers) * (i+1);
 		eSpawn[i]->SetEnemyType( (unsigned int)(rand() % numEnemySpawnTypes ) + 1);
 		eSpawn[ i ]->Set( 0, lHeight - (core.gfx.GetHeight() * 2) - j);
-		triggerList[ i ] = eSpawn[i];
+
+		triggerList[i] = eSpawn[i].get();
 		eSpawn[i]->Clear();
 	}
 
-	aSpawn = new ATrigger(core);
-	aSpawn->Set(rand() % 799, rand() % 2400 + 1200);
-	triggerList[ i ] = aSpawn;
-	aSpawn->Clear();
+	triggerList[i] = aSpawn.get();
 	i++;
-
-	eBoss = new BTrigger(core);
-	eBoss->Set(399, 300);
-	triggerList[ i ] = eBoss;
-	eBoss->Clear();
-	cur = triggerList[0];
+	triggerList[ i ] = eBoss.get();
 	currentTrigger = 0;
+	cur = triggerList[currentTrigger];
 }
 
 void Level::ClearTrigger(bool isCleared )
@@ -110,7 +113,6 @@ Level1::Level1(D3DGraphics &gfx, StateCore &core)
 
 Level1::~Level1()
 {
-	delete [] eSpawn;
 }
 
 Level2::Level2(D3DGraphics &gfx, StateCore &core)
@@ -129,7 +131,6 @@ Level2::Level2(D3DGraphics &gfx, StateCore &core)
 
 Level2::~Level2()
 {
-	delete [] eSpawn;
 }
 
 Level3::Level3(D3DGraphics &gfx, StateCore &core)
@@ -148,7 +149,6 @@ Level3::Level3(D3DGraphics &gfx, StateCore &core)
 
 Level3::~Level3()
 {
-	delete [] eSpawn;
 }
 
 Level4::Level4(D3DGraphics &gfx, StateCore &core)
@@ -167,7 +167,6 @@ Level4::Level4(D3DGraphics &gfx, StateCore &core)
 
 Level4::~Level4()
 {
-	delete [] eSpawn;
 }
 
 Level5::Level5(D3DGraphics &gfx, StateCore &core)
@@ -186,7 +185,6 @@ Level5::Level5(D3DGraphics &gfx, StateCore &core)
 
 Level5::~Level5()
 {
-	delete [] eSpawn;
 }
 
 Level6::Level6(D3DGraphics &gfx, StateCore &core)
@@ -205,7 +203,6 @@ Level6::Level6(D3DGraphics &gfx, StateCore &core)
 
 Level6::~Level6()
 {
-	delete [] eSpawn;
 }
 
 Level7::Level7(D3DGraphics &gfx, StateCore &core)
@@ -224,7 +221,6 @@ Level7::Level7(D3DGraphics &gfx, StateCore &core)
 
 Level7::~Level7()
 {
-	delete [] eSpawn;
 }
 
 Level8::Level8(D3DGraphics &gfx, StateCore &core)
@@ -243,5 +239,4 @@ Level8::Level8(D3DGraphics &gfx, StateCore &core)
 
 Level8::~Level8()
 {
-	delete [] eSpawn;
 }

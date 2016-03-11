@@ -6,6 +6,7 @@
 #include "Loading.h"
 #include "GameOver.h"
 #include "StoryLevel.h"
+#include <memory>
 
 StateController::StateController(StateCore &core)
 		:
@@ -16,14 +17,9 @@ StateController::StateController(StateCore &core)
 	isShopping(false)
 	{}
 
-void StateController::Transition( GameState *pNew)
+void StateController::Transition(std::unique_ptr<GameState> &pNewState)
 {
-	if(state)
-	{
-		delete state;
-	}
-
-	state = pNew;
+	state = std::move(pNewState);
 }
 
 void StateController::IsInShop( bool Shopping )
@@ -39,41 +35,44 @@ void StateController::Do()
 	}
 	if(core.curState != core.prevState)
 	{
+		std::unique_ptr<GameState> temp_state;
+
 		switch(core.curState)
 		{
 		case StateCore::GState::QUIT:
 			PostQuitMessage(0);
 			break;
 		case StateCore::GState::MAINMENU:
-			Transition(new MainMenu(*this, core, false));
+			temp_state = std::make_unique<MainMenu>(*this, core, false);
 			break;
 		case StateCore::GState::PAUSE:
-			Transition(new MainMenu( *this, core, true));
+			temp_state = std::make_unique<MainMenu>(*this, core, true);
 			break;
 		case StateCore::GState::SCOREMENU:
-			Transition(new ScoreMenu( *this, core ) );
+			temp_state = std::make_unique<ScoreMenu>( *this, core );
 			break;
 		case StateCore::GState::LOADING:
-			Transition(new Loading( *this, core) );
+			temp_state = std::make_unique<Loading>( *this, core);
 			break;
 		case StateCore::GState::PLAY:
-			Transition(new Play( *this, core ) );
+			temp_state = std::make_unique<Play>( *this, core );
 			core.prevState = core.PLAY;
 			break;
 		case StateCore::GState::SHOP:
-			Transition(new Shop( *this, core ) );
+			temp_state = std::make_unique<Shop>( *this, core );
 			break;
 		case StateCore::GState::GAMEOVER:
-			Transition(new GameOver( *this, core) );
+			temp_state = std::make_unique<GameOver>( *this, core);
 			break;	
 		case StateCore::GState::STORY:
 			switch( GetLevelIndex() )
 			{
 			case 1:
-				Transition(new SLevel1( *this, core) );
+				temp_state = std::make_unique<SLevel1>( *this, core);
 				break;	
 			}
 		}
+		Transition(temp_state);
 	}
 	
 	state->Do();
@@ -132,17 +131,12 @@ unsigned int StateController::GetLevelIndex()const
 
 Level *StateController::GetLevel() const
 {
-	return core.level;
+	return core.level.get();
 }
 
-void StateController::SetLevel( Level *l )
-{
-	if(core.level)
-	{
-		delete core.level;
-		core.level = nullptr;
-	}
-	core.level = l;
+void StateController::SetLevel(std::unique_ptr<Level> &NextLevel)
+{	
+	core.level = std::move(NextLevel);
 }
 
 StateController::~StateController()

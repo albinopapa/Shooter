@@ -1,5 +1,7 @@
 #pragma once
 
+#include "StandardLibraryIncludes.h"
+
 class StateCore;
 class EntityController;
 
@@ -20,7 +22,7 @@ protected:
 
 	float SpawnRate, SpawnTimer;
 	StateCore &core;
-	EntityController *ec;
+	std::unique_ptr<EntityController> ec;
 };
 
 class ETrigger : public Trigger

@@ -84,10 +84,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Assets\Asteroid.cpp" />
+    <ClCompile Include="..\Assets\Boss1.cpp" />
+    <ClCompile Include="..\Assets\Boss2.cpp" />
     <ClCompile Include="..\Assets\Button.cpp" />
     <ClCompile Include="..\Assets\Calculations.cpp" />
     <ClCompile Include="..\Assets\Camera.cpp" />
     <ClCompile Include="..\Assets\D3DGraphics.cpp" />
+    <ClCompile Include="..\Assets\Enemy.cpp" />
+    <ClCompile Include="..\Assets\Enemy1.cpp" />
+    <ClCompile Include="..\Assets\Enemy2.cpp" />
+    <ClCompile Include="..\Assets\Enemy3.cpp" />
+    <ClCompile Include="..\Assets\Enemy4.cpp" />
+    <ClCompile Include="..\Assets\Enemy5.cpp" />
     <ClCompile Include="..\Assets\Entity.cpp" />
     <ClCompile Include="..\Assets\EntityController.cpp" />
     <ClCompile Include="..\Assets\Event.cpp" />
@@ -104,6 +112,7 @@
     <ClCompile Include="..\Assets\Menu.cpp" />
     <ClCompile Include="..\Assets\Mouse.cpp" />
     <ClCompile Include="..\Assets\Play.cpp" />
+    <ClCompile Include="..\Assets\Player.cpp" />
     <ClCompile Include="..\Assets\Projectiles.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
@@ -128,7 +137,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Assets\Asteroid.h" />
+    <ClInclude Include="..\Assets\Boss1.h" />
+    <ClInclude Include="..\Assets\Boss2.h" />
     <ClInclude Include="..\Assets\Button.h" />
+    <ClInclude Include="..\Assets\Enemy.h" />
+    <ClInclude Include="..\Assets\Enemy1.h" />
+    <ClInclude Include="..\Assets\Enemy2.h" />
+    <ClInclude Include="..\Assets\Enemy3.h" />
+    <ClInclude Include="..\Assets\Enemy4.h" />
+    <ClInclude Include="..\Assets\Enemy5.h" />
+    <ClInclude Include="..\Assets\Player.h" />
+    <ClInclude Include="..\Assets\ShipIncludes.h" />
+    <ClInclude Include="..\Assets\StandardLibraryIncludes.h" />
     <ClInclude Include="..\Assets\Vec2.h" />
     <ClInclude Include="..\Assets\Camera.h" />
     <ClInclude Include="..\Assets\D3DGraphics.h" />

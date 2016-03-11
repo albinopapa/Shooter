@@ -1,8 +1,6 @@
 #pragma once
 #include "StateCore.h"
-#include <vector>
-#include <stdarg.h>
-#include <typeinfo>
+#include "StandardLibraryIncludes.h"
 
 
 class Story

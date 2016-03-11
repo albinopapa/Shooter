@@ -1,9 +1,8 @@
 #pragma once
 
-#include "Entity.h"
-#include <vector>
+#include "StandardLibraryIncludes.h"
 #include "Asteroid.h"
-#include "Ship.h"
+#include "ShipIncludes.h"
 #include "Camera.h"
 
 class StateCore;
@@ -13,7 +12,7 @@ class EntityController
 struct eSpawnHelper
 {
 	unsigned int eMax;
-	Enemy *e;
+	std::unique_ptr<Enemy> e;
 };
 
 public:
@@ -21,7 +20,7 @@ public:
 	~EntityController();
 	bool IsDead(Entity *ent);
 	bool SpawnAsteroid(int X, int Y);
-	bool SpawnProjectile(Projectile *pType);
+	bool SpawnProjectile(std::unique_ptr<Projectile> &pType);
 	bool SpawnEnemies(int X, int Y, unsigned int enemyType );
 	bool SpawnBoss( unsigned int currentLevel);
 
@@ -30,14 +29,13 @@ public:
 
 	// Entity update Methods
 	void Update(Entity *ent);
-	void EraseEntity(Entity *ent);
 
 private:
 	// Private Methods
 	
 	// Factory functions
-	void CreateBigAsteroid(Asteroid * ast);
-	void CreateSmallAsteroid(Asteroid *ast);
+	void CreateBigAsteroid(const std::unique_ptr<Asteroid> &ast);
+	void CreateSmallAsteroid(const std::unique_ptr<Asteroid> &ast);
 	
 	// Private members
 private:

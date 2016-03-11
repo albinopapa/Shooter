@@ -25,7 +25,6 @@
 #include "Game.h"
 #include "resource.h"
 #pragma comment( lib,"gdiplus.lib" )
-
 Game *game = 0;
 HWND hWnd = NULL;
 

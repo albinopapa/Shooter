@@ -49,7 +49,7 @@ pTestSurface( NULL )
 	result = pDevice->GetBackBuffer( 0,0,D3DBACKBUFFER_TYPE_MONO,&pBackBuffer );
 	assert( !FAILED( result ) );
 
-	pTestSurface = new Color[d3dpp.BackBufferWidth * d3dpp.BackBufferHeight];	
+	pTestSurface = std::make_unique<Color[]>(d3dpp.BackBufferWidth * d3dpp.BackBufferHeight);
 }
 
 bool D3DGraphics::IsWindowed() const
@@ -78,8 +78,8 @@ bool D3DGraphics::Reset()
 
 	if( pBackBuffer )
 		pBackBuffer->Release();
-	if( pTestSurface )
-		delete [] pTestSurface;
+
+	pTestSurface.release();
 
 	if( d3dpp.Windowed )
 		d3dpp.BackBufferWidth = d3dpp.BackBufferHeight = 0;
@@ -91,7 +91,7 @@ bool D3DGraphics::Reset()
 		return false;
 
 	pDevice->GetBackBuffer( 0,0,D3DBACKBUFFER_TYPE_MONO,&pBackBuffer );
-	pTestSurface = new Color[d3dpp.BackBufferWidth * d3dpp.BackBufferHeight];
+	pTestSurface = std::make_unique<Color[]>(d3dpp.BackBufferWidth * d3dpp.BackBufferHeight);
 	return true;
 }
 
@@ -125,11 +125,6 @@ D3DGraphics::~D3DGraphics()
 	{
 		pBackBuffer->Release();
 		pBackBuffer = NULL;
-	}
-	if( pTestSurface )
-	{
-		delete pTestSurface;
-		pTestSurface = NULL;
 	}
 }
 
@@ -2293,7 +2288,7 @@ D3DGraphics::Color D3DGraphics::GetPixel( int x,int y ) const
 
 void D3DGraphics::BeginFrame()
 {
-	memset( pTestSurface, FILLVALUE, sizeof( Color ) * d3dpp.BackBufferWidth * d3dpp.BackBufferHeight );
+	memset( pTestSurface.get(), FILLVALUE, sizeof( Color ) * d3dpp.BackBufferWidth * d3dpp.BackBufferHeight );
 }
 
 void D3DGraphics::EndFrame()
@@ -2696,8 +2691,8 @@ void D3DGraphics::DrawCurve(int x1, int y1, int x2, int y2, int x3, int y3, Colo
 	float sinA = sin(45 * (3.14159f / 180));
 	unsigned int step = 45;
 	unsigned int turns = 360 / step;
-	float *x = new float [turns];
-	float *y = new float [turns];
+	std::unique_ptr<float[]> x = std::make_unique<float[]>(turns);
+	std::unique_ptr<float[]> y = std::make_unique<float[]>(turns);
 	float PI = 3.14159f;
 	float Rad = PI / 180;
 	unsigned int radius = 200;
@@ -2727,8 +2722,6 @@ void D3DGraphics::DrawCurve(int x1, int y1, int x2, int y2, int x3, int y3, Colo
 		cy2 = y[j] + 300;
 		DrawLine(cx, cy, cx2, cy2, c);
 	}
-	delete x;
-	delete y;
 }
 
 D3DGraphics::Color D3DGraphics::FILLCOLOR(BYTE a, BYTE r, BYTE g, BYTE b)
@@ -2763,7 +2756,7 @@ void D3DGraphics::LoadSpriteAlpha( Sprite* sprite, LPCTSTR filename, Color key )
 	sprite->width = bitmap.GetWidth();
 	sprite->key = FILLCOLOR(255, 255, 255, 255);
 
-	sprite->surface = new Color[ sprite->height * sprite->width ];
+	sprite->surface = std::make_unique<Color[]>(sprite->height * sprite->width);
 
 	for( unsigned int y = 0; y < bitmap.GetHeight(); y++ )
 	{
@@ -2800,7 +2793,7 @@ void D3DGraphics::LoadFont( Font* font,Color* surface,LPCTSTR filename,
 	font->charHeight = Font.height / 3;
 	font->charWidth = Font.width / nCharsPerRow;
 	font->nCharsPerRow = nCharsPerRow;
-	font->surface = Font.surface;
+	font->surface = std::move(Font.surface);
 }
 
 // Particle functions

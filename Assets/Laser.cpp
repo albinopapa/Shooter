@@ -71,12 +71,12 @@ bool Laser::HasCollided(Entity* src2)
 	return collided;
 }
 
-void Laser::Draw(Vec2 &camOffset)
+void Laser::Draw(const Vec2 &CamOffset)
 {
 	Vec2 pos2 = pos;
-	pos = WorldToScreen( pos2, scrnSize, camOffset );
+	pos = WorldToScreen( pos2, scrnSize, CamOffset);
 	Vec2 p2 = CEndPoint;
-	p2 = WorldToScreen( p2, scrnSize, camOffset );
+	p2 = WorldToScreen( p2, scrnSize, CamOffset);
 	core.gfx.DrawLine( pos2, p2, core.gfx.FILLCOLOR_XRGB( 255,255,255 ) );
 }
 

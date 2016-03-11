@@ -30,7 +30,8 @@ void GameOver::Do()
 	}
 	else if (mTryAgain.ButtonClicked(ic, gfx))
 	{
-		sc.Transition(new Loading(sc, core));
+		std::unique_ptr<GameState> temp_load = std::make_unique<Loading>(sc, core);
+		sc.Transition(temp_load);
 	}
 	ComposeFrame();
 

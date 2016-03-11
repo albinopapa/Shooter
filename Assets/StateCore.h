@@ -2,12 +2,12 @@
 
 #define MAXENEMYTYPES 5
 
-#include <vector>
+#include "StandardLibraryIncludes.h"
 // Includes for game objects
 #include "Asteroid.h"
 #include "Camera.h"
 #include "Level.h"
-#include "Ship.h"
+#include "ShipIncludes.h"
 #include "ScoreController.h"
 #include "Sound.h"
 
@@ -49,11 +49,11 @@ public:
 	DSound& audio;
 	InputController ic;
 	Player player;
-	Level *level;
-	Enemy *boss;
-	std::vector<Projectile *> ammo;
-	std::vector<Asteroid *>asteroid;
-	std::vector< Enemy *>enemy;
+	std::unique_ptr<Level> level;
+	std::unique_ptr<Enemy> boss;
+	std::vector<std::unique_ptr<Projectile>> ammo;
+	std::vector<std::unique_ptr<Asteroid>> asteroid;
+	std::vector<std::unique_ptr<Enemy>> enemy;
 	ScoreController cScore;	
 	GState curState, prevState;
 

@@ -4,6 +4,7 @@
 #include "Trigger.h"
 #include "D3DGraphics.h"
 #include "Camera.h"
+#include "StandardLibraryIncludes.h"
 
 class StateCore;
 
@@ -30,10 +31,12 @@ protected:
 	// File names of background image and background music
 	LPCTSTR audFile;
 	unsigned int numEnemySpawnTypes, numEnemyTriggers;
-	ETrigger **eSpawn;
-	Trigger *eBoss;
-	Trigger *aSpawn;
-	Trigger **triggerList;
+	std::unique_ptr<std::unique_ptr<ETrigger>[]> eSpawn;
+
+	std::unique_ptr<Trigger> eBoss;
+	std::unique_ptr<Trigger> aSpawn;
+	std::unique_ptr<Trigger*[]> triggerList;
+
 	Trigger *cur;
 	StateCore &core;
 	unsigned int currentTrigger;

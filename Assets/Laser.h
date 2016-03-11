@@ -6,7 +6,7 @@ class Laser : public Projectile
 public:
 	Laser();
 	Laser(const Vec2 &Position, const Vec2 &Slope, StateCore &Core);
-	void Draw(Vec2 &camOffset);
+	void Draw(const Vec2 &CamOffset)override;
 	bool HasCollided(Entity *src2);
 	void Do();
 	void UpdateEndPoint( Vec2 &c );

@@ -33,22 +33,22 @@ MainMenu::MainMenu( StateController &sc, StateCore &core, bool isPaused )
 
 	if(!isPaused)
 	{
-		mStart = new Button(c, 100, 100, width, height, "Start");
+		mStart = std::make_unique<Button>(c, 100, 100, width, height, "Start");
 	}
 	else
 	{
-		mStart = new Button(c, 100, 100, width, height, "Resume");
+		mStart = std::make_unique<Button>(c, 100, 100, width, height, "Resume");
 	}
-	mScore = new Button(c, 100, 200, width, height, "Score");
-	mQuit = new Button(c, 100, 300, width, height, "Quit");
+	mScore = std::make_unique<Button>(c, 100, 200, width, height, "Score");
+	mQuit = std::make_unique<Button>(c, 100, 300, width, height, "Quit");
 	//mShop = new Button(c, 100, 400, width, height, "Shop" );
 	//mOptions = new Button(c, 100, 500, width, height, "Options");
 
 	nBtns = 3;
-	mButtons = new Button*[ nBtns ];
-	mButtons[0] = mStart;
-	mButtons[1] = mScore;
-	mButtons[2] = mQuit;
+	mButtons = std::make_unique<Button*[]>(nBtns);
+	mButtons[0] = mStart.get();
+	mButtons[1] = mScore.get();
+	mButtons[2] = mQuit.get();
 	if(core.prevState == StateCore::GState::NONE)
 	{
 		core.prevState = core.curState;
@@ -59,18 +59,6 @@ MainMenu::MainMenu( StateController &sc, StateCore &core, bool isPaused )
 
 MainMenu::~MainMenu()
 {
-	for(int i = 0; i < nBtns; i++)
-	{
-		delete mButtons[ i ];
-		mButtons[i] = nullptr;
-	}
-	mStart = nullptr;
-	mScore = nullptr;
-	mQuit = nullptr;
-	//mOptions = nullptr;
-	//mShop = nullptr;
-	delete [] mButtons;
-	mButtons = nullptr;
 }
 
 void MainMenu::Do()
@@ -118,7 +106,7 @@ ScoreMenu::ScoreMenu( StateController &sc, StateCore &core )
 	unsigned int width = 50;
 	unsigned int height = 100;
 	D3DGraphics::Color c = gfx.FILLCOLOR_XRGB(255, 255, 255);
-	mBack = new Button(c, 600, 50, width, height, "Back");
+	mBack = std::make_unique<Button>(c, 600, 50, width, height, "Back");
 	filename = "Scoreboard.txt";
 	LoadScoreList();
 }
@@ -154,8 +142,6 @@ void ScoreMenu::Draw()
 ScoreMenu::~ScoreMenu()
 {
 	entries.clear();
-	delete mBack;
-	mBack = nullptr;
 }
 
 // OptionsMenu class
@@ -166,9 +152,9 @@ OptionsMenu::OptionsMenu( StateController &sc, StateCore &core)
 	unsigned int width = 50;
 	unsigned int height = 100;
 	D3DGraphics::Color c = gfx.FILLCOLOR_XRGB(255, 255, 255);
-	mBack = new Button(c, 600, 50, width, height, "Back");
+	mBack = std::make_unique<Button>(c, 600, 50, width, height, "Back");
 
-	fileName = "options.txt";
+	filename = std::string("options.txt");
 	LoadConfig();
 }
 
@@ -186,10 +172,8 @@ void OptionsMenu::Draw()
 void OptionsMenu::LoadConfig()
 {
 	//FILE *pFile = fopen(fileName, "r");
-	char* temp = new char[10];
-
 	std::ifstream cFile;
-	cFile.open(fileName, std::ios::in);
+	cFile.open(filename, std::ios::in);
 
 	if(!cFile.is_open())
 	{
@@ -223,12 +207,20 @@ void OptionsMenu::LoadConfig()
 		fscanf(pFile, "%f", mVolume);
 		fscanf(pFile, "%f", sfxVolume);*/
 
-		cFile.getline(controller, 10);
-		cFile.getline(keyAssign[UP], 10);
-		cFile.getline(keyAssign[DOWN], 10);
-		cFile.getline(keyAssign[LEFT], 10);
-		cFile.getline(keyAssign[RIGHT], 10);
-		cFile.getline(keyAssign[FIRE], 10);
+		char temp[10];
+
+		cFile.getline(temp, 10);
+		controller.assign(temp);
+		cFile.getline(temp, 10);
+		keyAssign[UP].assign(temp);
+		cFile.getline(temp, 10);
+		keyAssign[DOWN].assign(temp);
+		cFile.getline(temp, 10);
+		keyAssign[LEFT].assign(temp);
+		cFile.getline(temp, 10);
+		keyAssign[RIGHT].assign(temp);
+		cFile.getline(temp, 10);
+		keyAssign[FIRE].assign(temp);
 		cFile.getline(temp, 4);
 		resX = atoi(temp);
 		cFile.getline(temp, 4);
@@ -248,25 +240,22 @@ void OptionsMenu::LoadConfig()
 		sfxVolume = atof(temp);
 	}
 	cFile.close();
-	delete [] temp;
-
-	//fclose( pFile);
 }
 
-void OptionsMenu::GetControlsOptions( char* controllerType, char** keyAssignments )
+void OptionsMenu::GetControlsOptions(std::string& controllerType, std::string *keyAssignments)
 {
 	 controllerType = controller;
 	 keyAssignments = keyAssign;
 }
 
-void OptionsMenu::GetGraphicsOptions( unsigned int* scrnRes, bool isFullScreen )
+void OptionsMenu::GetGraphicsOptions(unsigned int* scrnRes, bool &isFullScreen)
 {
 	scrnRes[0] = resX;
 	scrnRes[1] = resY;
 	isFullScreen = fScreen;
 }
 
-void OptionsMenu::GetSoundOptions( float musicVolume, float sfxVolume )
+void OptionsMenu::GetSoundOptions(float &musicVolume, float &sfxVolume)
 {
 	musicVolume = mVolume;
 	sfxVolume = this->sfxVolume;
@@ -287,9 +276,9 @@ void OptionsMenu::SaveConfig()
 	fprintf(pFile, "%d", fScreen);
 	fprintf(pFile, "%f", mVolume);
 	fprintf(pFile, "%f", sfxVolume);*/
-	char *temp = new char[ 10 ];
+	char temp[10]{};
 	std::ofstream cFile;
-	cFile.open(fileName, std::ios::out);
+	cFile.open(filename, std::ios::out);
 	cFile << controller;
 	cFile << keyAssign[UP];
 	cFile << keyAssign[DOWN];
@@ -321,6 +310,4 @@ void OptionsMenu::SaveConfig()
 OptionsMenu::~OptionsMenu()
 {
 	SaveConfig();
-	delete mBack;
-	mBack = nullptr;
 }

@@ -110,6 +110,15 @@
       <Filter>Source\Assets\Projectiles</Filter>
     </ClCompile>
     <ClCompile Include="..\Assets\Vec2.cpp" />
+    <ClCompile Include="..\Assets\Player.cpp" />
+    <ClCompile Include="..\Assets\Enemy.cpp" />
+    <ClCompile Include="..\Assets\Enemy1.cpp" />
+    <ClCompile Include="..\Assets\Enemy2.cpp" />
+    <ClCompile Include="..\Assets\Enemy3.cpp" />
+    <ClCompile Include="..\Assets\Enemy4.cpp" />
+    <ClCompile Include="..\Assets\Enemy5.cpp" />
+    <ClCompile Include="..\Assets\Boss1.cpp" />
+    <ClCompile Include="..\Assets\Boss2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Assets\Event.h" />
@@ -215,6 +224,17 @@
     <ClInclude Include="..\Assets\Vec2.h">
       <Filter>Headers\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="..\Assets\Player.h" />
+    <ClInclude Include="..\Assets\Enemy.h" />
+    <ClInclude Include="..\Assets\Enemy1.h" />
+    <ClInclude Include="..\Assets\Enemy2.h" />
+    <ClInclude Include="..\Assets\Enemy3.h" />
+    <ClInclude Include="..\Assets\Enemy4.h" />
+    <ClInclude Include="..\Assets\Enemy5.h" />
+    <ClInclude Include="..\Assets\Boss1.h" />
+    <ClInclude Include="..\Assets\Boss2.h" />
+    <ClInclude Include="..\Assets\ShipIncludes.h" />
+    <ClInclude Include="..\Assets\StandardLibraryIncludes.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Headers">

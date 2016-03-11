@@ -55,8 +55,8 @@ private:
 	void writeData();
 
 private:
-	WepPur* weppur;
+	std::unique_ptr<WepPur> weppur;
 	std::string filename;
-	Inventory **inv;
+	std::unique_ptr<std::unique_ptr<Inventory>[]> inv;
 
 };

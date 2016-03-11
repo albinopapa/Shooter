@@ -10,33 +10,36 @@ GameState(sc, core)
 void Loading::Do()
 {
 	BeginFrame();
+	std::unique_ptr<Level> next_level;
 	switch (sc.GetLevelIndex())
 	{
-	case 1:		
-		sc.SetLevel(new Level1(core.gfx, core));
+	case 1:
+		next_level = std::make_unique<Level1>(core.gfx, core);
 		break;
 	case 2:
-		sc.SetLevel(new Level2(core.gfx, core));
+		next_level = std::make_unique<Level2>(core.gfx, core);
 		break;
 	case 3:
-		sc.SetLevel(new Level3(core.gfx, core));
+		next_level = std::make_unique<Level3>(core.gfx, core);
 		break;
 	case 4:
-		sc.SetLevel(new Level4(core.gfx, core));
+		next_level = std::make_unique<Level4>(core.gfx, core);
 		break;
 	case 5:
-		sc.SetLevel(new Level5(core.gfx, core));
+		next_level = std::make_unique<Level5>(core.gfx, core);
 		break;
 	case 6:
-		sc.SetLevel(new Level6(core.gfx, core));
+		next_level = std::make_unique<Level6>(core.gfx, core);
 		break;
 	case 7:
-		sc.SetLevel(new Level7(core.gfx, core));
+		next_level = std::make_unique<Level7>(core.gfx, core);
 		break;
 	case 8:
-		sc.SetLevel(new Level8(core.gfx, core));
+		next_level = std::make_unique<Level8>(core.gfx, core);
 		break;
 	}
+	sc.SetLevel(next_level);
+
 	LoadLevel();
 	ComposeFrame();
 

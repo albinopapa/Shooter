@@ -5,20 +5,20 @@
 
 WeaponController::WeaponController(StateCore &core)
 	:
-	core(core)	
+	core(core),
+	weapons(std::make_unique<std::unique_ptr<Weapon>[]>(nWeps))
 {
-	weapon = new Weapon*[nWeps];
-	weapon[0] = new Blaster(core, true, true, 1, "Blaster", 500);
-	weapon[1] = new MachineGun(core, false, false, 0, "Machine Gun", 500);
-	weapon[2] = new MLauncher(core, false, false, 0, "Missile Launcher", 500);
-	weapon[3] = new ECannon(core, false, false, 0, "Energy Cannon", 500);
-	weapon[4] = new LaserWeap(core, true, true, 5, "Lazer", 500);
+	weapons[0] = std::make_unique<Blaster>(core, true, true, 1, "Blaster", 500);
+	weapons[1] = std::make_unique<MachineGun>(core, false, false, 0, "Machine Gun", 500);
+	weapons[2] = std::make_unique<MLauncher>(core, false, false, 0, "Missile Launcher", 500);
+	weapons[3] = std::make_unique<ECannon>(core, false, false, 0, "Energy Cannon", 500);
+	weapons[4] = std::make_unique<LaserWeap>(core, true, true, 5, "Lazer", 500);
 	hotkeys[ 0 ] = DIK_1;
 	hotkeys[ 1 ] = DIK_2;
 	hotkeys[ 2 ] = DIK_3;
 	hotkeys[ 3 ] = DIK_4;
-	hotkeys[ 4 ] = DIK_5;	
-	curWeapon = weapon[4];
+	hotkeys[ 4 ] = DIK_5;
+	curWeapon = weapons[4].get();
 	Energy = 100;
 	RechargeRate = 1.0f;
 }
@@ -46,9 +46,9 @@ void WeaponController::SwitchWeapon()
 	{
 		if( core.ic.KeyTyped( hotkeys[ i ] ) )
 		{
-			if( weapon[i]->unlocked )
+			if( weapons[i]->unlocked )
 			{
-				curWeapon = weapon[i];
+				curWeapon = weapons[i].get();
 			}
 		}
 	}
@@ -123,7 +123,7 @@ int WeaponController::SalePrice(Weapon *wep)
 
 Weapon *WeaponController::GetWeapon( unsigned int i)
 {
-	return weapon[ i ];
+	return weapons[ i ].get();
 }
 
 WeaponController::~WeaponController()

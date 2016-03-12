@@ -44,6 +44,10 @@ BigAstro::BigAstro( StateCore &core)
 {
 }
 
+BigAstro::~BigAstro()
+{
+}
+
 void BigAstro::Init( int X,  int Y)
 {	
 	health = 10;
@@ -61,6 +65,10 @@ SmallAstro::SmallAstro( StateCore &core)
 	Asteroid(core )
 {
 	Init(pos.x, pos.y);
+}
+
+SmallAstro::~SmallAstro()
+{
 }
 
 void SmallAstro::Init( int X,  int Y)

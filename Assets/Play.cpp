@@ -170,17 +170,20 @@ void Play::CheckCollisions()
 		}
 	}
 
-	ec.CheckCollision(core.boss.get(), player);
-	for (auto &ammo : core.ammo)
-	{
-		ec.CheckCollision(core.boss.get(), ammo.get());
-	}
 
-	if (core.boss->GetHealth() <= 0.0f)
+	if (core.boss)
 	{
-		core.boss.release();
-		core.currentLevel++;
-		core.curState = StateCore::GState::LOADING;
+		ec.CheckCollision(core.boss.get(), player);
+		for (auto &ammo : core.ammo)
+		{
+			ec.CheckCollision(core.boss.get(), ammo.get());
+		}
+		if (core.boss->GetHealth() <= 0.0f)
+		{
+			core.boss.release();
+			core.currentLevel++;
+			core.curState = StateCore::GState::LOADING;
+		}
 	}
 
 }
@@ -188,15 +191,18 @@ void Play::CheckCollisions()
 void Play::CleanVectors()
 {
 	auto &ammo_clean_start = std::remove_if(core.ammo.begin(), core.ammo.end(),
-		[&](Projectile &Ammo)
+		[](std::unique_ptr<Projectile> &Ammo)
 	{
-		return Ammo.HasTimeToLive();
+		return Ammo->HasTimeToLive();
 	});
 	auto &enemy_clean_start = std::remove_if(core.enemy.begin(), core.enemy.end(),
-		[&](Enemy &En)
+		[](std::unique_ptr<Enemy> &En)
 	{
-		return En.GetHealth() <= 0.0f;
+		return En->GetHealth() <= 0.0f;
 	});
+
+	core.ammo.erase(ammo_clean_start, core.ammo.end());
+	core.enemy.erase(enemy_clean_start, core.enemy.end());
 }
 
 void Play::ComposeFrame()

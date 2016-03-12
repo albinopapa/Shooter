@@ -61,7 +61,7 @@ bool EntityController::SpawnEnemies(int X, int Y, unsigned int enemyType)
 	{
 		core.enemyCount[enemyType] += 1;
 		eHelper.e->SetSpawnPoint({ static_cast<float>(X), static_cast<float>(Y) });
-		core.enemy.push_back(eHelper.e);
+		core.enemy.push_back(std::move(eHelper.e));
 		isSpawned = true;
 	}
 	return isSpawned;
@@ -73,12 +73,12 @@ bool EntityController::SpawnProjectile(std::unique_ptr<Projectile> &pType)
 	return true;
 }
 
-void EntityController::CreateBigAsteroid(const std::unique_ptr<Asteroid> &ast)
+void EntityController::CreateBigAsteroid(std::unique_ptr<Asteroid> &ast)
 {
-	core.asteroid.push_back(ast);
+	core.asteroid.push_back(std::move(ast));
 }
 
-void EntityController::CreateSmallAsteroid(const std::unique_ptr<Asteroid> &ast)
+void EntityController::CreateSmallAsteroid(std::unique_ptr<Asteroid> &ast)
 {
 	/*int index = astros.size() - 1;
 	float X = astros[ index ]->GetX();

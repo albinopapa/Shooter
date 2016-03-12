@@ -34,8 +34,8 @@ private:
 	// Private Methods
 	
 	// Factory functions
-	void CreateBigAsteroid(const std::unique_ptr<Asteroid> &ast);
-	void CreateSmallAsteroid(const std::unique_ptr<Asteroid> &ast);
+	void CreateBigAsteroid(std::unique_ptr<Asteroid> &ast);
+	void CreateSmallAsteroid(std::unique_ptr<Asteroid> &ast);
 	
 	// Private members
 private:
